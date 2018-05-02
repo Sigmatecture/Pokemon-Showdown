@@ -154,7 +154,7 @@ exports.BattleMovedex = {
 		flags: {contact: 1, protect: 1, mirror: 1},
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
-			this.add('-anim', target, 'Moonblast', source);
+			this.add('-anim', source, 'Moonblast', target);
 		},
 		secondary: {
 			chance: 10,
@@ -185,7 +185,7 @@ exports.BattleMovedex = {
 		volatileStatus: 'imprison',
 		onPrepareHit: function (target, source) {
 			this.attrLastMove('[still]');
-			this.add('-anim', target, 'Anchor Shot', source);
+			this.add('-anim', source, 'Anchor Shot', target);
 		},
 		secondary: {
 			chance: 100,
@@ -281,7 +281,7 @@ exports.BattleMovedex = {
 		accuracy: 75,
 		basePower: 0,
 		category: "Physical",
-		shortDesc: "",
+		shortDesc: "Random type, stat changes, and status; 33% recoil.",
 		id: "starboltdesperation",
 		isNonstandard: true,
 		name: 'Star Bolt Desperation',
@@ -1597,7 +1597,7 @@ exports.BattleMovedex = {
 			this.add('-anim', source, "Memento", target);
 		},
 		onHit: function (target, source, move) {
-			if (!target.addVolatile('trapped', source, move, 'trapper')) {
+			if (!target.addVolatile('trapped', source, move)) {
 				this.add('-fail', target);
 			}
 		},
@@ -1727,7 +1727,7 @@ exports.BattleMovedex = {
 	dizzyrock: {
 		accuracy: true,
 		category: "Status",
-		shortDesc: "Hurts foes on switch-in. Factors Rock weakness. Confuses foe",
+		shortDesc: "Confuses foes on switch-in.",
 		id: "dizzyrock",
 		isNonstandard: true,
 		isViable: true,
@@ -1746,9 +1746,7 @@ exports.BattleMovedex = {
 				this.add('-sidestart', side, 'move: Dizzy Rock');
 			},
 			onSwitchIn: function (pokemon) {
-				let typeMod = this.clampIntRange(pokemon.runEffectiveness('Rock'), -6, 6);
 				pokemon.addVolatile('confusion');
-				this.damage(pokemon.maxhp * Math.pow(2, typeMod) / 8);
 			},
 		},
 		secondary: false,
@@ -1909,7 +1907,7 @@ exports.BattleMovedex = {
 			this.add('-anim', source, "Sacred Fire", target);
 			this.add('-anim', source, "Gravity", target);
 		},
-		onEffectiveness: 0,
+		onEffectiveness: 1,
 		drain: [1, 2],
 		ignoreImmunity: {'Dragon': true},
 		secondary: false,
@@ -1947,7 +1945,7 @@ exports.BattleMovedex = {
 	meswirlsyou: {
 		accuracy: true,
 		basePower: 0,
-		cateogry: "Status",
+		category: "Status",
 		desc: "Replaces the target's moves with random moves until it switches out.",
 		shortDesc: "Randomizes the targets moves.",
 		id: "meswirlsyou",

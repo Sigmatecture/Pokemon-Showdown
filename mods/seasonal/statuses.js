@@ -145,7 +145,7 @@ exports.BattleStatuses = {
 		effectType: 'Weather',
 		duration: 5,
 		onStart: function (battle, source, effect) {
-			this.add('-weather', 'Legendary Frost');
+			this.add('-weather', 'Hail');
 		},
 		onTryMove: function (target, source, effect) {
 			if (effect.type === 'Fire') {
@@ -156,8 +156,7 @@ exports.BattleStatuses = {
 		},
 		onResidualOrder: 1,
 		onResidual: function () {
-			this.add('-weather', 'Legendary Frost', '[upkeep]');
-			this.add('html|<div><small>The hail is crashing down.</small></div>');
+			this.add('-weather', 'Hail', '[upkeep]');
 			if (this.isWeather('legendaryfrost')) this.eachEvent('Weather');
 		},
 		onWeather: function (target) {
@@ -558,13 +557,22 @@ exports.BattleStatuses = {
 		noCopy: true,
 		onStart: function (pokemon) {
 			let sentences = ['Don\'t take this seriously', 'These Black Glasses sure look cool', 'Ready for some fun?( ͡° ͜ʖ ͡°)', '( ͡° ͜ʖ ͡°'];
-			this.add('c|@innovamania|' + sentences[this.random(4)]);
-			this.boost({atk: 6, def: 6, spa: 6, spd: 6, spe: 6, accuracy: 6}, pokemon);
+			this.add('c|+innovamania|' + sentences[this.random(4)]);
+			let boosts = ['atk', 'def', 'spa', 'spd', 'spe', 'accuracy'];
+			for (const stat of boosts) {
+				this.add('-boost', pokemon, stat, 6); // fake boosts
+			}
 		},
+		onBoost: function (boosts) {
+			boosts = {};
+			this.add('c|+innovamania|( ͡° ͜ʖ ͡°)'); // ( ͡° ͜ʖ ͡°)
+		},
+		onModifyBoostPriority: 1, // Ignored by Unaware and the like
+		onModifyBoost: {atk: 6, def: 6, spa: 6, spd: 6, spe: 6, accuracy: 6},
 		onFaint: function (pokemon) {
 			pokemon.side.addSideCondition('healingwish', pokemon, this);
 			let sentences = ['Did you rage quit?', 'How\'d you lose with this set?'];
-			this.add('c|@innovamania|' + sentences[this.random(2)]);
+			this.add('c|+innovamania|' + sentences[this.random(2)]);
 		},
 	},
 	iyarito: {
@@ -584,13 +592,13 @@ exports.BattleStatuses = {
 		exists: true,
 		noCopy: true,
 		onStart: function () {
-			this.add('c|%kalalokki|(•_•)');
+			this.add('c|%Kalalokki|(•_•)');
 			this.add('c|%Kalalokki|( •_•)>⌐■-■');
 			this.add('c|%Kalalokki|(⌐■_■)');
 			this.setWeather('raindance');
 		},
 		onFaint: function () {
-			this.add('c|%kalalokki|(•_•)');
+			this.add('c|%Kalalokki|(•_•)');
 			this.add('c|%Kalalokki|( •_•)>⌐■-■');
 			this.add('c|%Kalalokki|(x_x)');
 		},
@@ -622,13 +630,13 @@ exports.BattleStatuses = {
 		exists: true,
 		noCopy: true,
 		onStart: function () {
-			this.add('c|%Kay|Every kiss begins with kay');
+			this.add('c|@Kay|Every kiss begins with kay');
 		},
 		onSwitchOut: function () {
-			this.add('c|%Kay|\u304F\u30B3:\u5F61');
+			this.add('c|@Kay|\u304F\u30B3:\u5F61');
 		},
 		onFaint: function () {
-			this.add('c|%Kay|\u304F\u30B3:\u5F61');
+			this.add('c|@Kay|\u304F\u30B3:\u5F61');
 		},
 	},
 	kingswordyt: {
@@ -658,10 +666,10 @@ exports.BattleStatuses = {
 		exists: true,
 		noCopy: true,
 		onStart: function () {
-			this.add('c|@LifeisDANK|(\u2070\u2296\u2070)Peent');
+			this.add('c|&LifeisDANK|(\u2070\u2296\u2070)Peent');
 		},
 		onFaint: function () {
-			this.add('c|@LifeisDANK|(\u2022\u0348\u2314\u2022\u0348 ) ...peent');
+			this.add('c|&LifeisDANK|(\u2022\u0348\u2314\u2022\u0348 ) ...peent');
 		},
 	},
 	macchaeger: {
@@ -714,13 +722,12 @@ exports.BattleStatuses = {
 			}
 		},
 		onStart: function (battle, source, effect) {
-			this.add('-weather', 'Arid Plateau', '[from] ability: ' + effect, '[of] ' + source);
+			this.add('-weather', 'Sandstorm', '[from] ability: ' + effect, '[of] ' + source);
 		},
 		onResidualOrder: 1,
 		onResidual: function () {
-			this.add('-weather', 'Arid Plateau', '[upkeep]');
-			this.add('html|<div><small>The dust storm is raging.</small></div>');
-			this.eachEvent('Weather');
+			this.add('-weather', 'Sandstorm', '[upkeep]');
+			if (this.isWeather('aridplateau')) this.eachEvent('Weather');
 		},
 		onWeather: function (target) {
 			this.damage(target.maxhp / 16, null, null, 'sandstorm');
@@ -747,7 +754,7 @@ exports.BattleStatuses = {
 		noCopy: true,
 		effectType: 'Ability',
 		onStart: function (source) {
-			this.add('c|%panpawn|hello darkness my old friend,,,');
+			this.add('c|@panpawn|hello darkness my old friend,,,');
 			for (let i = 0; i < this.queue.length; i++) {
 				if (this.queue[i].choice === 'runPrimal' && this.queue[i].pokemon === source && source.template.speciesid === 'groudon') return;
 				if (this.queue[i].choice !== 'runSwitch' && this.queue[i].choice !== 'runPrimal') break;
@@ -755,10 +762,10 @@ exports.BattleStatuses = {
 			this.setWeather('sunnyday');
 		},
 		onFaint: function () {
-			this.add('c|%panpawn|how RUDE ;_;7');
+			this.add('c|@panpawn|how RUDE ;_;7');
 		},
 		onSwitchOut: function () {
-			this.add('c|%panpawn|... >:^(');
+			this.add('c|@panpawn|... >:^(');
 		},
 	},
 	scotteh: {
@@ -826,6 +833,9 @@ exports.BattleStatuses = {
 		onStart: function (pokemon) {
 			this.add('j|@Soccer');
 			pokemon.side.addSideCondition('soccergreeting', pokemon);
+		},
+		onEffectiveness: function () {
+			return -1;
 		},
 		onSwitchOut: function (pokemon) {
 			this.add("c|@Soccer|I'll come back when you switch me in");

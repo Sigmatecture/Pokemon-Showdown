@@ -54,7 +54,7 @@ exports.BattleAbilities = {
 		shortDesc: "The first hit this Pokemon takes in battle deals 0 neutral damage.",
 		onDamage: function (damage, target, source, effect) {
 			if (effect && effect.effectType === 'Move' && !this.effectData.busted) {
-				this.add('-activate', target, 'ability: Stealth');
+				this.add('-activate', target, 'ability: Disguise');
 				this.effectData.busted = true;
 				return 0;
 			}

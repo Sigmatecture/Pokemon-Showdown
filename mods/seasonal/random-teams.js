@@ -195,7 +195,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			},
 			'False': {
 				species: 'Roserade', ability: 'Nitric Acid', item: 'Roseradium Z', gender: 'N', // ask gender
-				moves: ['Energy Ball', 'Psystrike', 'Quiver Dance'],
+				moves: ['Seed Flare', 'Psystrike', 'Quiver Dance'],
 				signatureMove: 'Sludge Wave', // custom Z move
 				evs: {hp: 4, spa: 252, spe: 252}, nature: 'Timid',
 			},
@@ -208,7 +208,7 @@ class RandomStaffBrosTeams extends RandomTeams {
 			'Former Hope': {
 				species: 'Toxapex', ability: 'Corrosion', item: 'Leftovers', gender: 'N', // ask gender
 				moves: ['Toxic', 'Recover', ['Substitute', 'Magic Coat'][this.random(2)]],
-				signatureMove: 'Hope Stikes Back',
+				signatureMove: 'Hope Strikes Back',
 				evs: {hp: 252, def: 192, spd: 64}, nature: 'Bold',
 			},
 			'GoodMorningEspeon': {
