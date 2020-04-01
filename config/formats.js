@@ -379,6 +379,16 @@ let Formats = [
 		},
 	},
 	{
+		name: "[Gen 8] Multi Battle",
+
+		mod: 'gen8',
+		gameType: 'multi',
+		ruleset: ['Team Preview', 'Cancel Mod'],
+		onValidateTeam(team) {
+			return [`Due to social distancing rules in place because of the COVID-19 virus, gatherings of three or more battlers are banned.`];
+		},
+	},
+	{
 		name: "[Gen 8] Doubles Custom Game",
 
 		mod: 'gen8',
