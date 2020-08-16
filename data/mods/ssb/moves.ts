@@ -693,9 +693,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		onTryHit(pokemon) {
 			return !!this.queue.willAct() && this.runEvent('StallMove', pokemon);
 		},
-		onHit(pokemon) {
-			pokemon.addVolatile('stall');
-		},
 		condition: {
 			duration: 1,
 			onStart(target) {
@@ -723,14 +720,14 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				}
 				if (move.category === 'Physical') {
 					const statuses = ['brn', 'par', 'tox'];
-					source.trySetStatus(this.sample(statuses),target)
+					source.trySetStatus(this.sample(statuses),target);
 				}
 				return this.NOT_FAIL;
-			},
+			}, 
 			onHit(target, source, move) {
 				if (move.category === 'Physical') {
 					const statuses = ['brn', 'par', 'tox'];
-					source.trySetStatus(this.sample(statuses),target)
+					source.trySetStatus(this.sample(statuses),target);
 				}
 			},
 		},

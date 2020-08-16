@@ -386,7 +386,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		},
 	},
 
-	// Celine 
+	// Celine
 	guardianarmor: {
 		desc: "Raises Defense and Special Defense by two stages upon switch in.",
 		shortDesc: "+2 Def and SpD on switch in.",
