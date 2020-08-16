@@ -734,7 +734,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				}
 			},
 		},
-		forceSwitch: true,
 		secondary: null,
 		target: "self",
 		type: "Normal",
