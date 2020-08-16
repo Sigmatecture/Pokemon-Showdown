@@ -721,6 +721,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				if (move.category === 'Physical') {
 					const statuses = ['brn', 'par', 'tox'];
 					source.trySetStatus(this.sample(statuses),target);
+					source.forceSwitchFlag = true;
 				}
 				return this.NOT_FAIL;
 			}, 
@@ -728,6 +729,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 				if (move.category === 'Physical') {
 					const statuses = ['brn', 'par', 'tox'];
 					source.trySetStatus(this.sample(statuses),target);
+					source.forceSwitchFlag = true;
 				}
 			},
 		},
