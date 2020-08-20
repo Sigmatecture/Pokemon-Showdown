@@ -677,7 +677,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		name: "Status Guard",
 		pp: 10,
 		priority: 4,
-		flags: {protect: 1},
+		flags: {},
 		stallingMove: true,
 		volatileStatus: 'statusguard',
 		onTryMovePriority: 100,
@@ -2777,6 +2777,34 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		secondary: null,
 		target: "self",
 		type: "Psychic",
+	},
+
+	// tennisace
+	corgistampede: {
+		accuracy: 100,
+		basePower: 30,
+		category: "Physical",
+		desc: "This attack always hits 4 times in a row. Hits Ground-type Pokemon super-effectively.",
+		name: "Corgi Stampede",
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		shortDesc: "Hits 4 times in one turn. 2x effective on ground types.",
+		onTryMovePriority: 100,
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Rollout', target);
+			this.add('-anim', source, 'Thundershock', target);
+		},
+		onEffectiveness(typeMod, target, type) {
+			if (type === 'Ground') return 1;
+		},
+		multihit: [4, 4],
+		secondary: null,
+		target: "normal",
+		type: "Electric",
 	},
 
 	// Tenshi

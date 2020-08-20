@@ -139,6 +139,12 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 		inherit: true,
 		abilities: {0: "One For All"},
 	},
+	// tennisace
+	tennisace: {
+		inherit: true,
+		baseStats: {hp: 69, atk: 125, def: 75, spa: 45, spd: 75, spe: 101},
+		abilities: {0: "Stout Build"},
+	},
 	// yuki
 	pikachucosplay: {
 		inherit: true,

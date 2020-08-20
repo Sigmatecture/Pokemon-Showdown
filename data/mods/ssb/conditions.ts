@@ -1050,6 +1050,18 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 			this.add(`c|${getName('Teclis')}|Magic never dies. It merely fades away.`);
 		},
 	},
+	tennisace: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|${getName('tennisace')}|Hi`);
+		},
+		onSwitchOut() {
+			this.add(`c|${getName('tennisace')}|Mmph`);
+		},
+		onFaint() {
+			this.add(`c|${getName('tennisace')}|Bye`);
+		},
+	},
 	tenshi: {
 		noCopy: true,
 		onStart() {
