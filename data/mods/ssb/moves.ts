@@ -2801,7 +2801,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		onEffectiveness(typeMod, target, type) {
 			if (type === 'Ground') return 1;
 		},
-		multihit: [4, 4],
+		multihit: 4,
 		secondary: null,
 		target: "normal",
 		type: "Electric",
