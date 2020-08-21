@@ -2785,22 +2785,23 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		basePower: 30,
 		category: "Physical",
 		desc: "This attack always hits 4 times in a row. Hits Ground-type Pokemon super-effectively.",
+		shortDesc: "Hits 4 times. Super effective on Ground.",
 		name: "Corgi Stampede",
 		pp: 10,
 		priority: 0,
-		flags: {protect: 1, mirror: 1},
-		shortDesc: "Hits 4 times in one turn. 2x effective on ground types.",
+		flags: {protect: 1},
 		onTryMovePriority: 100,
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
 		onPrepareHit(target, source) {
-			this.add('-anim', source, 'Rollout', target);
-			this.add('-anim', source, 'Thundershock', target);
+			this.add('-anim', target, 'Rollout', target);
+			this.add('-anim', target, 'Thundershock', target);
 		},
 		onEffectiveness(typeMod, target, type) {
 			if (type === 'Ground') return 1;
 		},
+		ignoreImmunity: {Electric: true},
 		multihit: 4,
 		secondary: null,
 		target: "normal",
