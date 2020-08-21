@@ -143,7 +143,6 @@ export const Pokedex: {[k: string]: ModdedSpeciesData} = {
 	yamper: {
 		inherit: true,
 		baseStats: {hp: 69, atk: 125, def: 75, spa: 45, spd: 75, spe: 101},
-		abilities: {0: "Stout Build"},
 	},
 	// yuki
 	pikachucosplay: {
