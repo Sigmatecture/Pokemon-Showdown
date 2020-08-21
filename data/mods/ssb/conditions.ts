@@ -1052,14 +1052,15 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 	},
 	tennisace: {
 		noCopy: true,
+		// TODO: Replace text with corgi images, contact Hoeen about uploading some images for ssb
 		onStart() {
-			this.add(`c|${getName('tennisace')}|Hi`);
+			// this.add(`c|${getName('tennisace')}|Hi`);
 		},
 		onSwitchOut() {
-			this.add(`c|${getName('tennisace')}|Mmph`);
+			// this.add(`c|${getName('tennisace')}|Mmph`);
 		},
 		onFaint() {
-			this.add(`c|${getName('tennisace')}|Bye`);
+			// this.add(`c|${getName('tennisace')}|Bye`);
 		},
 	},
 	tenshi: {
