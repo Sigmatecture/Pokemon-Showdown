@@ -344,7 +344,7 @@ export const ssbSets: SSBSets = {
 		species: 'Zekrom', ability: 'Petrichor', item: 'Damp Rock',
 		moves: ['Bolt Strike', 'Dragon Claw', 'Liquidation'],
 		signatureMove: 'Ca-LLAMA-ty',
-		evs: {atk: 252, def: 4, spe: 252}, nature: 'Jolly', shiny: true,
+		evs: {atk: 252, def: 4, spe: 252}, ivs: {def: 0}, nature: 'Jolly', shiny: true,
 	},
 	MajorBowman: {
 		species: 'Weezing-Galar', ability: 'Neutralizing Gas', item: 'Black Sludge', gender: 'M',
