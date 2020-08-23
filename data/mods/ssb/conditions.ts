@@ -750,16 +750,16 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 			this.add(`c|${getName('Lionyx')}|The cold never bothered me anyway...`);
 		},
 	},
-	'Mad Monty ¾°': {
+	madmonty: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|${getName('Petrichor')}|Ah, the sweet smell of rain... Oh! Hi there!`);
+			this.add(`c|${getName('Mad Monty ¾°')}|Ah, the sweet smell of rain... Oh! Hi there!`);
 		},
 		onSwitchOut() {
-			this.add(`c|${getName('Petrichor')}|Hey, I was enjoying the weather! Awww...`);
+			this.add(`c|${getName('Mad Monty ¾°')}|Hey, I was enjoying the weather! Awww...`);
 		},
 		onFaint() {
-			this.add(`c|${getName('Petrichor')}|Nooo, if I go, who will stop the llamas?`);
+			this.add(`c|${getName('Mad Monty ¾°')}|Nooo, if I go, who will stop the llamas?`);
 		},
 	},
 	majorbowman: {
