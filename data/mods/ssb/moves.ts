@@ -2134,7 +2134,6 @@ export const Moves: {[k: string]: ModdedMoveData & {gen?: number}} = {
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
 		shortDesc: "30% chance to paralyze. Summons rain.",
-		onTryMovePriority: 100,
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
