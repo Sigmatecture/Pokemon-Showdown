@@ -660,6 +660,31 @@ export const Moves: {[k: string]: ModdedMoveData & {gen?: number}} = {
 		type: "Fighting",
 	},
 
+	// Blaz
+	bleakdecember: {
+		accuracy: 100,
+		basePower: 80,
+		category: "Special",
+		desc: "Damage is calculated using the user's Special Defense stat as its Special Attack, including stat stage changes. Other effects that modify the Special Attack stat are used as normal.",
+		shortDesc: "Uses user's SpD stat as SpA in damage calculation.",
+		name: "Bleak December",
+		isNonstandard: "Custom",
+		gen: 8,
+		pp: 15,
+		priority: 0,
+		flags: {contact: 1, protect: 1, mirror: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Spirit Break', target);
+		},
+		useSourceDefensiveAsOffensive: true,
+		secondary: null,
+		target: "normal",
+		type: "Fairy",
+	},
+
 	// Cake
 	kevin: {
 		accuracy: true,
@@ -1670,6 +1695,76 @@ export const Moves: {[k: string]: ModdedMoveData & {gen?: number}} = {
 		type: "Dark",
 	},
 
+	// Jho
+	genrechange: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		desc: "If the user is a Toxtricity, it changes into its Low-Key forme and Nasty Plot and Overdrive change to Aura Sphere and Boomburst, respectively. If the user is a Toxtricity in its Low-Key forme, it changes into its Amped forme and Aura Sphere and Boomburst turn into Nasty Plot and Overdrive, respectively. Raises the user's Speed by 1 stage.",
+		shortDesc: "Toxtricity: +1 Speed. Changes forme.",
+		name: "Genre Change",
+		isNonstandard: "Custom",
+		gen: 8,
+		pp: 5,
+		priority: 0,
+		flags: {sound: 1},
+		onTryMove(pokemon, target, move) {
+			this.attrLastMove('[still]');
+			if (pokemon.species.baseSpecies === 'Toxtricity') {
+				return;
+			}
+			this.add('-fail', pokemon, 'move: Genre Change');
+			this.hint("Only a Pokemon whose form is Toxtricity or Toxtricity-Low-Key can use this move.");
+			return null;
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Screech', source);
+			// The transform animation is done via `formeChange`
+		},
+		onHit(pokemon) {
+			if (pokemon.species.forme === 'Low-Key') {
+				changeSet(this, pokemon, ssbSets['Jho'], true);
+			} else {
+				changeSet(this, pokemon, ssbSets['Jho-Low-Key'], true);
+			}
+		},
+		boosts: {
+			spe: 1,
+		},
+		secondary: null,
+		target: "self",
+		type: "Normal",
+	},
+
+	// Jordy
+	archeopssrage: {
+		accuracy: 85,
+		basePower: 90,
+		category: "Physical",
+		desc: "Upon damaging the target, the user gains +1 Speed.",
+		shortDesc: "+1 Speed upon hit.",
+		name: "Archeops's Rage",
+		isNonstandard: "Custom",
+		gen: 8,
+		pp: 5,
+		flags: {protect: 1},
+		priority: 0,
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Sunsteel Strike', target);
+		},
+		type: "Flying",
+		self: {
+			boosts: {
+				spe: 1,
+			},
+		},
+		secondary: null,
+		target: "normal",
+	},
+
 	// Kaiju Bunny
 	cozycuddle: {
 		accuracy: 95,
@@ -1906,127 +2001,6 @@ export const Moves: {[k: string]: ModdedMoveData & {gen?: number}} = {
 		type: "Dark",
 	},
 
-	// Lionyx
-	bigbang: {
-		accuracy: 100,
-		basePower: 120,
-		category: "Special",
-		desc: "The user loses 33% of the damage dealt by this attack. Resets the field by clearing all hazards, terrains, walls, and weather.",
-		shortDesc: "33% recoil; removes hazards/weather/terrain.",
-		name: "Big Bang",
-		isNonstandard: "Custom",
-		gen: 8,
-		pp: 5,
-		priority: 0,
-		flags: {protect: 1, mirror: 1},
-		onTryMove() {
-			this.attrLastMove('[still]');
-		},
-		onPrepareHit(target, source) {
-			this.add('-anim', source, 'Extreme Evoboost', source);
-			this.add('-anim', source, 'Light of Ruin', target);
-			this.add('-anim', source, 'Dark Void', target);
-		},
-		onHit(target, source, move) {
-			let success = false;
-			const removeAll = [
-				'reflect', 'lightscreen', 'auroraveil', 'safeguard', 'mist', 'spikes', 'toxicspikes', 'stealthrock', 'shiftingrocks', 'stickyweb',
-			];
-			const silentRemove = ['reflect', 'lightscreen', 'auroraveil', 'safeguard', 'mist'];
-			for (const sideCondition of removeAll) {
-				if (target.side.removeSideCondition(sideCondition)) {
-					if (!(silentRemove.includes(sideCondition))) {
-						this.add('-sideend', target.side, this.dex.getEffect(sideCondition).name, '[from] move: Big Bang', '[of] ' + source);
-						success = true;
-					}
-				}
-				if (source.side.removeSideCondition(sideCondition)) {
-					if (!(silentRemove.includes(sideCondition))) {
-						this.add('-sideend', source.side, this.dex.getEffect(sideCondition).name, '[from] move: Big Bang', '[of] ' + source);
-						success = true;
-					}
-				}
-			}
-			this.field.clearTerrain();
-			this.field.clearWeather();
-			return success;
-		},
-		recoil: [33, 100],
-		secondary: null,
-		target: "normal",
-		type: "Fairy",
-	},
-
-	// Jho
-	genrechange: {
-		accuracy: true,
-		basePower: 0,
-		category: "Status",
-		desc: "If the user is a Toxtricity, it changes into its Low-Key forme and Nasty Plot and Overdrive change to Aura Sphere and Boomburst, respectively. If the user is a Toxtricity in its Low-Key forme, it changes into its Amped forme and Aura Sphere and Boomburst turn into Nasty Plot and Overdrive, respectively. Raises the user's Speed by 1 stage.",
-		shortDesc: "Toxtricity: +1 Speed. Changes forme.",
-		name: "Genre Change",
-		isNonstandard: "Custom",
-		gen: 8,
-		pp: 5,
-		priority: 0,
-		flags: {sound: 1},
-		onTryMove(pokemon, target, move) {
-			this.attrLastMove('[still]');
-			if (pokemon.species.baseSpecies === 'Toxtricity') {
-				return;
-			}
-			this.add('-fail', pokemon, 'move: Genre Change');
-			this.hint("Only a Pokemon whose form is Toxtricity or Toxtricity-Low-Key can use this move.");
-			return null;
-		},
-		onPrepareHit(target, source) {
-			this.add('-anim', source, 'Screech', source);
-			// The transform animation is done via `formeChange`
-		},
-		onHit(pokemon) {
-			if (pokemon.species.forme === 'Low-Key') {
-				changeSet(this, pokemon, ssbSets['Jho'], true);
-			} else {
-				changeSet(this, pokemon, ssbSets['Jho-Low-Key'], true);
-			}
-		},
-		boosts: {
-			spe: 1,
-		},
-		secondary: null,
-		target: "self",
-		type: "Normal",
-	},
-
-	// Jordy
-	archeopssrage: {
-		accuracy: 85,
-		basePower: 90,
-		category: "Physical",
-		desc: "Upon damaging the target, the user gains +1 Speed.",
-		shortDesc: "+1 Speed upon hit.",
-		name: "Archeops's Rage",
-		isNonstandard: "Custom",
-		gen: 8,
-		pp: 5,
-		flags: {protect: 1},
-		priority: 0,
-		onTryMove() {
-			this.attrLastMove('[still]');
-		},
-		onPrepareHit(target, source) {
-			this.add('-anim', source, 'Sunsteel Strike', target);
-		},
-		type: "Flying",
-		self: {
-			boosts: {
-				spe: 1,
-			},
-		},
-		secondary: null,
-		target: "normal",
-	},
-
 	// Kris
 	alphabetsoup: {
 		accuracy: true,
@@ -2123,38 +2097,134 @@ export const Moves: {[k: string]: ModdedMoveData & {gen?: number}} = {
 		type: "Dark",
 	},
 
-	// Mad Monty ¾°
-	callamaty: {
+	// Lamp
+	soulswap: {
 		accuracy: 100,
-		basePower: 75,
-		category: "Physical",
-		desc: "30% chance to paralyze. Starts Rain Dance if not currently active.",
-		name: "Ca-LLAMA-ty",
+		basePower: 90,
+		category: "Special",
+		desc: "The user copies the target's positive stat stage changes and then inverts the target's stats.",
+		shortDesc: "Copies target's stat boosts then inverts.",
+		name: "Soul Swap",
+		isNonstandard: "Custom",
+		gen: 8,
 		pp: 10,
 		priority: 0,
 		flags: {protect: 1, mirror: 1},
-		shortDesc: "30% chance to paralyze. Summons rain.",
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
 		onPrepareHit(target, source) {
-			this.add('-anim', source, 'Dark Void', target);
-			this.add('-anim', source, 'Plasma Fists', target);
+			this.add('-anim', source, 'Spectral Thief', target);
+			this.add('-anim', source, 'Teleport', source);
+			this.add('-anim', source, 'Topsy-Turvy', target);
 		},
-		secondary: {
-			chance: 30,
-			status: 'par',
+		onHit(target, source) {
+			let i: BoostName;
+			const boosts: SparseBoostsTable = {};
+			for (i in target.boosts) {
+				const stage = target.boosts[i];
+				if (stage > 0) {
+					boosts[i] = stage;
+				}
+				if (target.boosts[i] !== 0) {
+					target.boosts[i] = -target.boosts[i];
+				}
+			}
+			this.add('-message', `${source.name} stole ${target.name}'s boosts!`);
+			this.boost(boosts, source);
+			this.add('-invertboost', target, '[from] move: Soul Swap');
 		},
-		self: {
-			onHit(source) {
-				this.field.setWeather('raindance');
-			},
-		},
+		secondary: null,
 		target: "normal",
-		type: "Electric",
+		type: "Ghost",
 	},
 
-	// Majorbowman
+	// Lionyx
+	bigbang: {
+		accuracy: 100,
+		basePower: 120,
+		category: "Special",
+		desc: "The user loses 33% of the damage dealt by this attack. Resets the field by clearing all hazards, terrains, walls, and weather.",
+		shortDesc: "33% recoil; removes hazards/weather/terrain.",
+		name: "Big Bang",
+		isNonstandard: "Custom",
+		gen: 8,
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1, mirror: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Extreme Evoboost', source);
+			this.add('-anim', source, 'Light of Ruin', target);
+			this.add('-anim', source, 'Dark Void', target);
+		},
+		onHit(target, source, move) {
+			let success = false;
+			const removeAll = [
+				'reflect', 'lightscreen', 'auroraveil', 'safeguard', 'mist', 'spikes', 'toxicspikes', 'stealthrock', 'shiftingrocks', 'stickyweb',
+			];
+			const silentRemove = ['reflect', 'lightscreen', 'auroraveil', 'safeguard', 'mist'];
+			for (const sideCondition of removeAll) {
+				if (target.side.removeSideCondition(sideCondition)) {
+					if (!(silentRemove.includes(sideCondition))) {
+						this.add('-sideend', target.side, this.dex.getEffect(sideCondition).name, '[from] move: Big Bang', '[of] ' + source);
+						success = true;
+					}
+				}
+				if (source.side.removeSideCondition(sideCondition)) {
+					if (!(silentRemove.includes(sideCondition))) {
+						this.add('-sideend', source.side, this.dex.getEffect(sideCondition).name, '[from] move: Big Bang', '[of] ' + source);
+						success = true;
+					}
+				}
+			}
+			this.field.clearTerrain();
+			this.field.clearWeather();
+			return success;
+		},
+		recoil: [33, 100],
+		secondary: null,
+		target: "normal",
+		type: "Fairy",
+	},
+
+// Mad Monty ¾°
+callamaty: {
+	accuracy: 100,
+	basePower: 75,
+	category: "Physical",
+	desc: "30% chance to paralyze. Starts Rain Dance if not currently active.",
+	name: "Ca-LLAMA-ty",
+	pp: 10,
+	priority: 0,
+	flags: {
+		protect: 1,
+		mirror: 1
+	},
+	shortDesc: "30% chance to paralyze. Summons rain.",
+	onTryMove() {
+		this.attrLastMove('[still]');
+	},
+	onPrepareHit(target, source) {
+		this.add('-anim', source, 'Dark Void', target);
+		this.add('-anim', source, 'Plasma Fists', target);
+	},
+	secondary: {
+		chance: 30,
+		status: 'par',
+	},
+	self: {
+		onHit(source) {
+			this.field.setWeather('raindance');
+		},
+	},
+	target: "normal",
+	type: "Electric",
+},
+
+	// MajorBowman
 	corrosivecloud: {
 		accuracy: true,
 		basePower: 90,
@@ -2611,6 +2681,109 @@ export const Moves: {[k: string]: ModdedMoveData & {gen?: number}} = {
 		type: "Dragon",
 	},
 
+	// ptoad
+	croak: {
+		accuracy: 100,
+		basePower: 20,
+		basePowerCallback(pokemon, target, move) {
+			return move.basePower + 20 * pokemon.positiveBoosts();
+		},
+		category: "Special",
+		desc: "Randomly raises two stats (other than evasion and accuracy) by 1 before attacking. + 20 power for each of the user's stat boosts. Sound based move.",
+		shortDesc: "Raises two stats 1 stage, then attacks. +20 power for every boost. Sound",
+		name: "Croak",
+		isNonstandard: "Custom",
+		gen: 8,
+		pp: 10,
+		priority: 0,
+		flags: {protect: 1, mirror: 1, sound: 1, authentic: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source, move) {
+			this.add('-anim', source, 'Splash', source);
+			const stats: BoostName[] = [];
+			let stat: BoostName;
+			const exclude: string[] = ['accuracy', 'evasion'];
+			for (stat in source.boosts) {
+				if (source.boosts[stat] < 6 && !exclude.includes(stat)) {
+					stats.push(stat);
+				}
+			}
+			if (stats.length) {
+				let randomStat = this.sample(stats);
+				const boost: SparseBoostsTable = {};
+				boost[randomStat] = 1;
+				if (stats.length > 1) {
+					stats.splice(stats.indexOf(randomStat), 1);
+					randomStat = this.sample(stats);
+					boost[randomStat] = 1;
+				}
+				this.boost(boost, source, source, move);
+			}
+			this.add('-anim', source, 'Hyper Voice', source);
+		},
+		secondary: null,
+		target: "normal",
+		type: "Water",
+	},
+
+	// used for ptoad's ability
+	swampyterrain: {
+		accuracy: true,
+		basePower: 0,
+		category: "Status",
+		desc: "For 5 turns, the terrain becomes Swampy Terrain. During the effect, the power of Electric-type, Grass-type, and Ice-type attacks made by grounded Pokemon are halved and Water and Ground types heal 1/16 at the end of each turn if grounded. Fails if the current terrain is Swampy Terrain.",
+		shortDesc: "5 turns. Grounded: -Electric, -Grass and -Ice power, Water & Ground heal 1/16 each turn.",
+		name: "Swampy Terrain",
+		isNonstandard: "Custom",
+		pp: 10,
+		priority: 0,
+		flags: {nonsky: 1},
+		terrain: 'swampyterrain',
+		condition: {
+			duration: 5,
+			durationCallback(source, effect) {
+				if (source?.hasItem('terrainextender')) {
+					return 8;
+				}
+				return 5;
+			},
+			onBasePowerPriority: 6,
+			onBasePower(basePower, attacker, defender, move) {
+				if (['Electric', 'Grass', 'Ice'].includes(move.type) && attacker.isGrounded() && !attacker.isSemiInvulnerable()) {
+					this.debug('swampy terrain weaken');
+					return this.chainModify(0.5);
+				}
+			},
+			onStart(battle, source, effect) {
+				if (effect?.effectType === 'Ability') {
+					this.add('-fieldstart', 'move: Swampy Terrain', '[from] ability: ' + effect, '[of] ' + source);
+				} else {
+					this.add('-fieldstart', 'move: Swampy Terrain');
+				}
+			},
+			onResidualOrder: 5,
+			onResidualSubOrder: 3,
+			onResidual() {
+				this.eachEvent('Terrain');
+			},
+			onTerrain(pokemon) {
+				if ((pokemon.hasType('Water') || pokemon.hasType('Ground')) && pokemon.isGrounded() && !pokemon.isSemiInvulnerable()) {
+					this.debug('Pokemon is grounded and a Water or Ground type, healing through Swampy Terrain.');
+					this.heal(pokemon.baseMaxhp / 16, pokemon, pokemon);
+				}
+			},
+			onEnd() {
+				if (!this.effectData.duration) this.eachEvent('Terrain');
+				this.add('-fieldend', 'move: Swampy Terrain');
+			},
+		},
+		secondary: null,
+		target: "all",
+		type: "Ground",
+	},
+
 	// quadrophenic
 	extremeways: {
 		accuracy: 100,
@@ -2753,7 +2926,8 @@ export const Moves: {[k: string]: ModdedMoveData & {gen?: number}} = {
 		onTryMove() {
 			this.attrLastMove('[still]');
 		},
-		onPrepareHit(target, source) {
+		onPrepareHit(target, source, move) {
+			this.boost({atk: 1, spe: 1}, source, source, move);
 			this.add('-anim', source, 'Sacred Fire', target);
 		},
 		onHit(target, source) {
@@ -2761,7 +2935,6 @@ export const Moves: {[k: string]: ModdedMoveData & {gen?: number}} = {
 				this.runMegaEvo(source);
 			}
 		},
-		// stat boosting implemented in custom status
 		secondary: null,
 		target: "normal",
 		type: "Fire",
@@ -3365,6 +3538,33 @@ export const Moves: {[k: string]: ModdedMoveData & {gen?: number}} = {
 		target: "randomNormal",
 		type: "Ghost",
 		contestType: "Tough",
+	},
+
+	// Vexen
+	asteriusstrike: {
+		accuracy: 85,
+		basePower: 100,
+		category: "Physical",
+		desc: "Has a 25% chance to confuse the target.",
+		shortDesc: "25% chance to confuse the target.",
+		name: "Asterius Strike",
+		isNonstandard: "Custom",
+		gen: 8,
+		pp: 5,
+		priority: 0,
+		flags: {protect: 1, contact: 1, mirror: 1},
+		onTryMove() {
+			this.attrLastMove('[still]');
+		},
+		onPrepareHit(target, source) {
+			this.add('-anim', source, 'Giga Impact', target);
+		},
+		secondary: {
+			chance: 25,
+			volatileStatus: 'confusion',
+		},
+		target: "normal",
+		type: "Normal",
 	},
 
 	// vivalospride

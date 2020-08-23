@@ -239,6 +239,18 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 			this.add(`c|${getName('biggie')}|it was all a dream`);
 		},
 	},
+	blaz: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|${getName('Blaz')}|Give me, give me, give me the truth now oh oh oh oh`);
+		},
+		onSwitchOut() {
+			this.add(`c|${getName('Blaz')}|Tell me... why? Please tell me why do we worry? Why? Why do we worry at all?`);
+		},
+		onFaint() {
+			this.add(`c|${getName('Blaz')}|the game (lol u lost)`);
+		},
+	},
 	cake: {
 		noCopy: true,
 		onStart(target, pokemon) {
@@ -306,6 +318,10 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 				return false;
 			}
 		},
+	},
+	celestial: {
+		noCopy: true,
+		// No quotes requested
 	},
 	celine: {
 		noCopy: true,
@@ -738,6 +754,18 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 			}
 		},
 	},
+	lamp: {
+		noCopy: true,
+		onStart(pokemon) {
+			this.add(`c|${getName('Lamp')}|DUDE HI ${pokemon.side.foe.name} (:`);
+		},
+		onSwitchOut(pokemon) {
+			this.add(`c|${getName('Lamp')}|bye ${pokemon.side.foe.name} :)`);
+		},
+		onFaint() {
+			this.add(`c|${getName('Lamp')}|no u`);
+		},
+	},
 	lionyx: {
 		noCopy: true,
 		onStart() {
@@ -950,6 +978,26 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 			}
 		},
 	},
+	ptoad: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|${getName('ptoad')}|I'm ptoad.`);
+		},
+		onSwitchOut() {
+			this.add(`c|${getName('ptoad')}|Bye, ribbitch!`);
+		},
+		onFaint() {
+			this.add(`c|${getName('ptoad')}|OKKKK DUUUDE`);
+		},
+		onTakeItem(item, pokemon, source) {
+			if (this.suppressingAttackEvents(pokemon) || !pokemon.hp || pokemon.item === 'stickybarb') return;
+			if (!this.activeMove) throw new Error("Battle.activeMove is null");
+			if ((source && source !== pokemon) || this.activeMove.id === 'knockoff') {
+				this.add('-activate', pokemon, 'ability: Sticky Hold');
+				return false;
+			}
+		},
+	},
 	quadrophenic: {
 		noCopy: true,
 		// No quotes requested
@@ -976,11 +1024,6 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 		},
 		onFaint() {
 			this.add(`c|${getName('Raj.Shoot')}|You'll join me in the shadow realm soon....`);
-		},
-		onBeforeMove(source, target, move) {
-			if (move.id === 'fanservice') {
-				this.boost({atk: 1, spe: 1}, source, source, move);
-			}
 		},
 	},
 	ransei: {
@@ -1175,6 +1218,18 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 		},
 		onFaint() {
 			this.add(`c|${getName('Trickster')}|(ಥ﹏ಥ)`);
+		},
+	},
+	vexen: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|${getName('Vexen')}|Most unlucky for you!`);
+		},
+		onSwitchOut() {
+			this.add(`c|${getName('Vexen')}|brb reading Bleach`);
+		},
+		onFaint() {
+			this.add(`c|${getName('Vexen')}|Wait this wasn't supposed to happen`);
 		},
 	},
 	vivalospride: {
