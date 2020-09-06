@@ -2918,15 +2918,16 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 			this.add('-anim', source, "Celebrate", target);
 		},
 		onHit(target, source) {
-			const hax = ['slp', 'brn', 'par', 'tox'];
-			target.trySetStatus(this.sample(hax), source);
-			if (target.status === 'slp') {
+			const hax = this.sample(['slp', 'brn', 'par', 'tox']);
+			target.trySetStatus(hax, source);
+			const curHax = target.status;
+			if (curHax === 'slp') {
 				this.useMove('Dream Eater', source);
-			} else if (target.status === 'par') {
+			} else if (curHax === 'par') {
 				this.useMove('Iron Head', source);
-			} else if (target.status === 'brn') {
+			} else if (curHax === 'brn') {
 				this.useMove('Fire Blast', source);
-			} else if (target.status === 'tox') {
+			} else if (curHax === 'tox') {
 				this.useMove('Venoshock', source);
 			}
 		},

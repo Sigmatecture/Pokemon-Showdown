@@ -1331,17 +1331,6 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 			const target = pokemon.side.foe.active[0];
 			target.addVolatile('attract');
 			this.add('-start', target, 'Attract', '[from] ability: Condition Override', '[of] ' + pokemon);
-
-			if (target.volatiles['attract']) {
-				this.boost({spd: -1}, target, pokemon, null, true)
-			}
-		},
-		onModifySpDPriority: 4,
-		onModifySpD(spd, pokemon) {
-			const target = pokemon.side.foe.active[0];
-			if (target.volatiles['attract']) {
-				return this.chainModify(0.75);
-			}
 		},
 		name: "Condition Override",
 		isNonstandard: "Custom",

@@ -1982,5 +1982,8 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 				return false;
 			}
 		},
+		onModifySpd(spd) {
+			this.chainModify(0.75);
+		},
 	},
 };
