@@ -2920,14 +2920,13 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		onHit(target, source) {
 			const hax = this.sample(['slp', 'brn', 'par', 'tox']);
 			target.trySetStatus(hax, source);
-			const curHax = target.status;
-			if (curHax === 'slp') {
+			if (hax === 'slp') {
 				this.useMove('Dream Eater', source);
-			} else if (curHax === 'par') {
+			} else if (hax === 'par') {
 				this.useMove('Iron Head', source);
-			} else if (curHax === 'brn') {
+			} else if (hax === 'brn') {
 				this.useMove('Fire Blast', source);
-			} else if (curHax === 'tox') {
+			} else if (hax === 'tox') {
 				this.useMove('Venoshock', source);
 			}
 		},

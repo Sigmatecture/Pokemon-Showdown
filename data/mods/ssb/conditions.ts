@@ -1982,6 +1982,7 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 				return false;
 			}
 		},
+		onModifySpdPriority: 6,
 		onModifySpd(spd) {
 			this.chainModify(0.75);
 		},
