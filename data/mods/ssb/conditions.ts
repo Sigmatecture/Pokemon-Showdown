@@ -1971,4 +1971,16 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 			}
 		},
 	},
+	// genderless infatuation for nui's Condition Override
+	attract: {
+		name: 'attract',
+		onBeforeMovePriority: 2,
+		onBeforeMove(pokemon, target, move) {
+			this.add('-activate', pokemon, 'move: Attract', '[of] ' + this.effectData.source);
+			if (this.randomChance(1, 2)) {
+				this.add('cant', pokemon, 'Attract');
+				return false;
+			}
+		},
+	},
 };
