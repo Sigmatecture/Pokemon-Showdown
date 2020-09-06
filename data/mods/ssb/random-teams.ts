@@ -432,17 +432,17 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'OwO wuts dis?',
 		evs: {atk: 252, spd: 4, spe: 252}, nature: 'Adamant',
 	},
-	Naziel: {
-		species: "Kirlia", ability: 'Prankster', item: 'Eviolite', gender: '',
-		moves: ['Glare', 'Defog', 'Swagger'],
-		signatureMove: 'Not-so-worthy Pirouette',
-		evs: {hp: 252, def: 200, spd: 56}, ivs: {atk: 0}, nature: 'Calm', shiny: true,
-	},
 	n10siT: {
 		species: 'Hoopa', ability: 'Greedy Magician', item: 'Focus Sash', gender: 'N',
 		moves: ['Hyperspace Hole', 'Shadow Ball', 'Aura Sphere'],
 		signatureMove: 'Unbind',
 		evs: {spa: 252, spd: 4, spe: 252}, ivs: {atk: 0}, nature: 'Timid',
+	},
+	Naziel: {
+		species: 'Kirlia', ability: 'Prankster', item: 'Eviolite', gender: '',
+		moves: ['Glare', 'Defog', 'Swagger'],
+		signatureMove: 'Not-so-worthy Pirouette',
+		evs: {hp: 252, def: 200, spd: 56}, ivs: {atk: 0}, nature: 'Calm', shiny: true,
 	},
 	Nolali: {
 		species: 'Litwick', ability: 'Burning Soul', item: 'Spooky Plate', gender: 'F',
@@ -455,6 +455,12 @@ export const ssbSets: SSBSets = {
 		moves: ['Hydro Cannon', 'Blast Burn', 'Toxic Spikes'],
 		signatureMove: 'Techno Tuber Transmission',
 		evs: {hp: 236, spa: 252, spe: 20}, ivs: {atk: 0}, nature: 'Modest',
+	},
+	nui: {
+		species: 'Jigglypuff', ability: 'Condition Override', item: 'King\'s Rock', gender: 'M',
+		moves: ['Stealth Rock', 'Attract', 'Heal Order'],
+		signatureMove: 'Win Condition',
+		evs: {hp: 248, def: 92, spd: 168}, nature: 'Bold', shiny: true,
 	},
 	'OM~!': {
 		species: 'Magneton', ability: 'Triage', item: 'Metronome', gender: 'N',
@@ -760,7 +766,7 @@ export const ssbSets: SSBSets = {
 export class RandomStaffBrosTeams extends RandomTeams {
 	randomStaffBrosTeam(options: {inBattle?: boolean} = {}) {
 		const team: PokemonSet[] = [];
-		const debug: string[] = []; // Set this to a list of SSB sets to override the normal pool for debugging.
+		const debug: string[] = ['nui','Mad Monty ¾°','Celine','tennisace']; // Set this to a list of SSB sets to override the normal pool for debugging.
 		const pool = debug.length ? debug : Object.keys(ssbSets);
 		const typePool: {[k: string]: number} = {};
 		let depth = 0;

@@ -1323,6 +1323,31 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 		gen: 8,
 	},
 
+	// nui
+	conditionoverride: {
+		desc: "On switch-in, this Pokemon attracts the opponents regardless of gender. Pokemon who are attracted have their Special Defense stat reduced by 25%.",
+		shortDesc: "Attracts opponent. Attracted Pokemon have SpD reduced by 25%.",
+		onStart(pokemon) {
+			const target = pokemon.side.foe.active[0];
+			target.addVolatile('attract');
+			this.add('-start', target, 'Attract', '[from] ability: Condition Override', '[of] ' + pokemon);
+
+			if (target.volatiles['attract']) {
+				this.boost({spd: -1}, target, pokemon, null, true)
+			}
+		},
+		onModifySpDPriority: 4,
+		onModifySpD(spd, pokemon) {
+			const target = pokemon.side.foe.active[0];
+			if (target.volatiles['attract']) {
+				return this.chainModify(0.75);
+			}
+		},
+		name: "Condition Override",
+		isNonstandard: "Custom",
+		gen: 8,
+	},
+
 	// Overneat
 	darkestwings: {
 		desc: "This Pokemon's contact moves have their power multiplied by 1.3. This Pokemon's Defense is doubled.",

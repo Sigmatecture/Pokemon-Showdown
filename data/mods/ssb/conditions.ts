@@ -1059,18 +1059,6 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 			}
 		},
 	},
-	naziel: {
-		noCopy: true,
-		onStart() {
-			this.add(`c|${getName('Naziel')}|ay ola soy nasieeeeeeel`);
-		},
-		onSwitchOut() {
-			this.add(`c|${getName('Naziel')}|YAY, I WILL NOT DIE THIS TIME`);
-		},
-		onFaint() {
-			this.add(`c|${getName('Naziel')}|Toy xikito no puedo ;-;`);
-		},
-	},
 	n10sit: {
 		noCopy: true,
 		onStart(source) {
@@ -1081,6 +1069,18 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 		},
 		onFaint() {
 			this.add(`c|${getName('n10siT')}|Hoopa never saw one of those!`);
+		},
+	},
+	naziel: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|${getName('Naziel')}|ay ola soy nasieeeeeeel`);
+		},
+		onSwitchOut() {
+			this.add(`c|${getName('Naziel')}|YAY, I WILL NOT DIE THIS TIME`);
+		},
+		onFaint() {
+			this.add(`c|${getName('Naziel')}|Toy xikito no puedo ;-;`);
 		},
 	},
 	nolali: {
@@ -1124,6 +1124,18 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 		},
 		onFaint() {
 			this.add(`c|${getName('Notater517')}|This is probably a good time to fix my sleep schedule`);
+		},
+	},
+	nui: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|${getName('nui')}|Poggaroo`);
+		},
+		onSwitchOut() {
+			this.add(`c|${getName('nui')}|Pog pepe`);
+		},
+		onFaint() {
+			this.add(`c|${getName('nui')}|just a sad pepe`);
 		},
 	},
 	overneat: {
