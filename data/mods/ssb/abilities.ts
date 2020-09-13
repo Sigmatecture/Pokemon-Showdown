@@ -1327,11 +1327,7 @@ export const Abilities: {[k: string]: ModdedAbilityData} = {
 	conditionoverride: {
 		desc: "On switch-in, this Pokemon attracts the opponents regardless of gender. Pokemon who are attracted have their Special Defense stat reduced by 25%.",
 		shortDesc: "Attracts opponent. Attracted Pokemon have SpD reduced by 25%.",
-		onStart(pokemon) {
-			const target = pokemon.side.foe.active[0];
-			target.addVolatile('attract');
-			this.add('-start', target, 'Attract', '[from] ability: Condition Override', '[of] ' + pokemon);
-		},
+		// See conditions.ts for implementation
 		name: "Condition Override",
 		isNonstandard: "Custom",
 		gen: 8,
