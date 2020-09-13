@@ -2019,7 +2019,7 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 	// genderless infatuation for nui's Condition Override
 	attract: {
 		name: 'attract',
-    inherit: true,
+		inherit: true,
 		onStart(pokemon, source, effect) {
 			if (!source.hasAbility('conditionoverride') ||
           (!(pokemon.gender === 'M' && source.gender === 'F') && !(pokemon.gender === 'F' && source.gender === 'M'))) {
@@ -2039,15 +2039,15 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 				this.add('-start', pokemon, 'Attract');
 			}
 		},
-    onModifySpDPriority: 1,
+		onModifySpDPriority: 1,
 		onModifySpD(spd, pokemon) {
-      for (const target of this.getAllActive()) {
+			for (const target of this.getAllActive()) {
 				if (target === pokemon) continue;
-				if (target.hasAbility('conditionoverride')) return this.chainModify(0.75); 
+				if (target.hasAbility('conditionoverride')) return this.chainModify(0.75);
 			}
 			return;
 		},
-  },
+	},
 
 	tempest: {
 		name: 'Tempest',
