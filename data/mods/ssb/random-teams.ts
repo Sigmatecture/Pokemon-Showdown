@@ -317,7 +317,7 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Patrona Attack',
 		evs: {def: 4, spa: 252, spe: 252}, nature: 'Timid', shiny: true,
 	},
-	'Jett x~x': {
+	Jett: {
 		species: 'Sneasel', ability: 'Deceiver', item: 'Heavy Duty Boots', gender: 'M',
 		moves: ['Knock Off', 'Triple Axel', 'Counter'],
 		signatureMove: 'The Hunt is On!',
@@ -377,6 +377,12 @@ export const ssbSets: SSBSets = {
 		moves: ['Body Press', 'Spiky Shield', 'Shore Up'],
 		signatureMove: 'Clash of Pangoros',
 		evs: {hp: 252, atk: 4, def: 252}, nature: 'Impish', shiny: true,
+	},
+	Kipkluif: {
+		species: 'Gossifleur', ability: 'Degenerator', item: 'Eviolite', gender: 'M',
+		moves: ['Leech Seed', 'Apple Acid', 'Court Change'],
+		signatureMove: 'Kip Up',
+		evs: {hp: 196, def: 116, spa: 36, spd: 116, spe: 36}, ivs: {atk: 0}, nature: 'Modest', shiny: true,
 	},
 	Kris: {
 		species: 'Unown', ability: 'Protean', item: 'Life Orb', gender: 'N',
@@ -611,6 +617,12 @@ export const ssbSets: SSBSets = {
 		moves: ['Knock Off', 'Roost', 'Brave Bird'],
 		signatureMove: 'Shade Uppercut',
 		evs: {atk: 252, spd: 4, spe: 252}, nature: 'Jolly', shiny: true,
+	},
+	'Soft Flex': {
+		species: 'Zapdos', ability: 'Eye of the Storm', item: ['Leftovers', 'Damp Rock'], gender: '',
+		moves: ['Thunder', 'Roost', ['Defog', 'Toxic']],
+		signatureMove: 'Updraft',
+		evs: {hp: 252, def: 252, spe: 8}, ivs: {atk: 0}, nature: 'Bold', shiny: 1024,
 	},
 	Spandan: {
 		species: 'Mareanie', ability: 'Hacked Corrosion', item: 'Eviolite', gender: 'M',

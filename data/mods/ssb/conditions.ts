@@ -184,7 +184,11 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 			this.add(`c|${getName('Arcticblast')}|oh no`);
 		},
 		onFaint() {
-			this.add(`c|${getName('Arcticblast')}|single battles are bad anyway, why am I here?`);
+			if (this.randomChance(1, 100)) {
+				this.add(`c|${getName('Arcticblast')}|get **mished** kid`);
+			} else {
+				this.add(`c|${getName('Arcticblast')}|single battles are bad anyway, why am I here?`);
+			}
 		},
 	},
 	averardo: {
@@ -748,16 +752,16 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 			this.add(`c|${getName('Iyarito')}|RIP Patrona`);
 		},
 	},
-	jettxx: {
+	jett: {
 		noCopy: true,
 		onStart() {
-			this.add(`c|${getName('Jett x~x')}|It's a good day for a hunt.`);
+			this.add(`c|${getName('Jett')}|It's a good day for a hunt.`);
 		},
-		onSwitchOut(source) {
-			this.add(`c|${getName('Jett x~x')}|I'll be back for more.`);
+		onSwitchOut() {
+			this.add(`c|${getName('Jett')}|I'll be back for more.`);
 		},
 		onFaint() {
-			this.add(`c|${getName('Jett x~x')}|They got lucky.`);
+			this.add(`c|${getName('Jett')}|They got lucky.`);
 		},
 	},
 	jho: {
@@ -870,6 +874,18 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 		},
 		onFaint() {
 			this.add(`c|${getName('KingSwordYT')}|**__Se anula el host__**`);
+		},
+	},
+	kipkluif: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|${getName('Kipkluif')}|Please play LCUU, it's fun`);
+		},
+		onSwitchOut() {
+			this.add(`c|${getName('Kipkluif')}| /teleport`);
+		},
+		onFaint() {
+			this.add(`c|${getName('Kipkluif')}|I've failed you.. I pray you hurry.. with those reinforcments.. you promised..`);
 		},
 	},
 	kris: {
@@ -1214,8 +1230,18 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 	},
 	pirateprincess: {
 		noCopy: true,
-		onStart() {
+		onStart(source) {
 			this.add(`c|${getName('PiraTe Princess')}|Ahoy! o/`);
+
+			// Easter Egg
+			const activeMon = this.toID(
+				source.side.foe.active[0].illusion ? source.side.foe.active[0].illusion.name : source.side.foe.active[0].name
+			);
+			if (activeMon === 'kaijubunny') {
+				this.add(`c|${getName('PiraTe Princess')}|~shame`);
+				this.add(`raw|<img src="https://i.imgur.com/pxsDOuK.gif" height="165" width="220">`);
+				this.add(`c|${getName('Kaiju Bunny')}|WHY MUST YOU DO THIS TO ME`);
+			}
 		},
 		onSwitchOut() {
 			this.add(`c|${getName('PiraTe Princess')}|brb making tea`);
@@ -1419,6 +1445,15 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 		},
 		onFaint() {
 			this.add(`c|${getName('Shadecession')}|ah, gg fam`);
+		},
+	},
+	softflex: {
+		noCopy: true,
+		onStart() {
+			this.add(`c|${getName('Soft Flex')}|:]`);
+		},
+		onFaint() {
+			this.add(`c|${getName('Soft Flex')}|:[`);
 		},
 	},
 	spandan: {
@@ -1633,8 +1668,17 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 	},
 	zodiax: {
 		noCopy: true,
-		onStart() {
+		onStart(source) {
 			this.add(`c|${getName('Zodiax')}|Zodiax is here to Zodihax`);
+
+			// Easter Egg
+			const activeMon = this.toID(
+				source.side.foe.active[0].illusion ? source.side.foe.active[0].illusion.name : source.side.foe.active[0].name
+			);
+			if (activeMon === 'aeonic') {
+				this.add(`c|${getName('Zodiax')}|Happy Birthday Aeonic`);
+				this.add(`c|${getName('Aeonic')}|THIS JOKE IS AS BORING AS YOU ARE`);
+			}
 		},
 		onSwitchOut() {
 			this.add(`c|${getName('Zodiax')}|Don't worry I'll be back again`);
@@ -1971,20 +2015,94 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 			}
 		},
 	},
+
 	// genderless infatuation for nui's Condition Override
 	attract: {
 		name: 'attract',
-		onBeforeMovePriority: 2,
-		onBeforeMove(pokemon, target, move) {
-			this.add('-activate', pokemon, 'move: Attract', '[of] ' + this.effectData.source);
-			if (this.randomChance(1, 2)) {
-				this.add('cant', pokemon, 'Attract');
+    inherit: true,
+		onStart(pokemon, source, effect) {
+			if (!source.hasAbility('conditionoverride') ||
+          (!(pokemon.gender === 'M' && source.gender === 'F') && !(pokemon.gender === 'F' && source.gender === 'M'))) {
+				this.debug('incompatible gender');
 				return false;
 			}
+			if (!this.runEvent('Attract', pokemon, source)) {
+				this.debug('Attract event failed');
+				return false;
+			}
+
+			if (effect.id === 'cutecharm') {
+				this.add('-start', pokemon, 'Attract', '[from] ability: Cute Charm', '[of] ' + source);
+			} else if (effect.id === 'destinyknot') {
+				this.add('-start', pokemon, 'Attract', '[from] item: Destiny Knot', '[of] ' + source);
+			} else {
+				this.add('-start', pokemon, 'Attract');
+			}
 		},
-		onModifySpdPriority: 6,
-		onModifySpd(spd) {
-			this.chainModify(0.75);
+    onModifySpDPriority: 1,
+		onModifySpD(spd, pokemon) {
+      for (const target of this.getAllActive()) {
+				if (target === pokemon) continue;
+				if (target.hasAbility('conditionoverride')) return this.chainModify(0.75); 
+			}
+			return;
+		},
+  },
+
+	tempest: {
+		name: 'Tempest',
+		effectType: 'Weather',
+		duration: 5,
+		durationCallback(source, effect) {
+			if (source?.hasItem('damprock')) {
+				return 8;
+			}
+			return 5;
+		},
+		onWeatherModifyDamage(damage, attacker, defender, move) {
+			if (defender.hasItem('utilityumbrella')) return;
+			if (move.type === 'Water') {
+				this.debug('rain water boost');
+				return this.chainModify(1.5);
+			}
+			if (move.type === 'Fire') {
+				this.debug('rain fire suppress');
+				return this.chainModify(0.5);
+			}
+		},
+		onStart(battle, source, effect) {
+			if (effect?.effectType === 'Ability') {
+				if (this.gen <= 5) this.effectData.duration = 0;
+				this.add('-weather', 'RainDance', '[from] ability: ' + effect, '[of] ' + source);
+			} else {
+				this.add('-weather', 'RainDance');
+			}
+		},
+		onUpdate() {
+			if (!this.field.isTerrain('tempestterrain')) {
+				this.add('-end', 'RainDance');
+			}
+		},
+		onResidualOrder: 1,
+		onResidual() {
+			if (!this.field.isTerrain('tempestterrain')) {
+				this.add('-end', 'RainDance');
+			}
+			this.add('-weather', 'RainDance', '[upkeep]');
+			this.eachEvent('Weather');
+		},
+		onWeather(target) {
+			if (target.hasType('Ground')) return;
+			if (target.hasType('Electric')) {
+				this.heal(target.baseMaxhp / 16);
+				return;
+			}
+			if (!target.hasType('Electric') && target.hasType(['Flying', 'Steel'])) {
+				this.damage(target.baseMaxhp / 8);
+			}
+		},
+		onEnd() {
+			this.add('-weather', 'none');
 		},
 	},
 };
