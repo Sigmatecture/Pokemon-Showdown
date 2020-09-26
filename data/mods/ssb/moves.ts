@@ -3093,8 +3093,8 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		target: "normal",
 		type: "Ghost",
 	},
-	
-	// used for pants' healing
+
+	// Side condition for pants' healing
 	wistfulthoughts: {
 		accuracy: true,
 		basePower: 0,
@@ -3224,7 +3224,6 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		target: "foeSide",
 		type: "Rock",
 	},
-
 	// phiwings99
 	ghostof1v1past: {
 		accuracy: true,

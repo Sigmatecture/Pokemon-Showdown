@@ -2263,5 +2263,4 @@ export const Conditions: {[k: string]: ModdedConditionData} = {
 			this.add('-weather', 'none');
 		},
 	},
-
 };
