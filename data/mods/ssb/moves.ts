@@ -3069,7 +3069,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		basePower: 0,
 		category: "Status",
 		desc: "Burns the opponent and switches out. For five turns, Pokemon on the user's side heal 6.25% damage.",
-		shortDesc: "Burn foe; switch out. Heals replacement for 5 turns..",
+		shortDesc: "Burn foe; switch out. Heals replacement for 5 turns.",
 		name: "Wistful Thinking",
 		isNonstandard: "Custom",
 		pp: 10,
