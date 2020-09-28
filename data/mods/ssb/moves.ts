@@ -3224,6 +3224,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		target: "foeSide",
 		type: "Rock",
 	},
+
 	// phiwings99
 	ghostof1v1past: {
 		accuracy: true,
