@@ -494,7 +494,7 @@ export const ssbSets: SSBSets = {
 	},
 	pants: {
 		species: 'Phantump', ability: 'Ghost Spores', item: 'Eviolite', gender: 'M',
-		moves: ['Taunt', 'Spirit Shackle', ['Horn Leech', 'U-Turn', 'Flip Turn']],
+		moves: ['Taunt', 'Spirit Shackle', ['Horn Leech', 'U-turn', 'Flip Turn']],
 		signatureMove: 'Wistful Thinking',
 		evs: {hp: 252, def: 4, spd: 252}, nature: 'Impish', shiny: true,
 	},
