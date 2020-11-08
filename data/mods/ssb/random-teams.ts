@@ -113,7 +113,7 @@ export const ssbSets: SSBSets = {
 		signatureMove: 'Radiant Burst',
 		evs: {hp: 252, def: 252, spe: 4}, ivs: {atk: 0}, nature: 'Bold',
 	},
-	ArchasTL: {
+	Archas: {
 		species: 'Naviathan', ability: 'Indomitable', item: 'Iron Plate', gender: 'F',
 		moves: ['Waterfall', 'Icicle Crash', 'No Retreat'],
 		signatureMove: 'Broadside Barrage',
@@ -520,7 +520,7 @@ export const ssbSets: SSBSets = {
 		species: 'Dragapult', ability: 'Stealth Black', item: 'Leftovers', gender: 'M',
 		moves: ['Hex', 'Dragon Darts', 'Work Up'],
 		signatureMove: 'Submartingale',
-		evs: {hp: 96, spa: 252, spd: 160}, nature: 'Mild',
+		evs: {hp: 216, spa: 252, spe: 40}, nature: 'Mild',
 	},
 	'Perish Song': {
 		species: 'Rhydon', ability: 'Soup Sipper', item: 'Rocky Helmet', gender: 'M',

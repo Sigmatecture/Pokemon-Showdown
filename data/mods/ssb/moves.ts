@@ -565,7 +565,7 @@ export const Moves: {[k: string]: ModdedMoveData} = {
 		type: "Flying",
 	},
 
-	// ArchasTL
+	// Archas
 	broadsidebarrage: {
 		accuracy: 90,
 		basePower: 30,
